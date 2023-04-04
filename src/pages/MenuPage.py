@@ -69,7 +69,7 @@ class MenuPage(tk.Frame):
         # Label (image): Source image
         self.src_img = tk.Label(
             self,
-            image = self.photos[1] if grandparent.src_img == None else grandparent.src_img,
+            image = self.photos[1] if grandparent.src_photo_img == None else grandparent.src_photo_img,
             bd = 0            
         )
         self.src_img.grid(column = 0, row = 4, columnspan = 2, sticky = 'W', padx = 10)

@@ -20,8 +20,10 @@ class DIP_Gui(tk.Tk):
     def __init__(self, *arg, **kwargs):
         """ Back-end """
         print('We are in __init__ of DIP_Gui')
-        self.src_img = None
-        print('src_img = None')
+        self.src_photo_img = None   
+            # type: ImageTk.PhotoImage 
+        self.src_img_path = None    
+
         """ Front-end """
         # __init__ function for class tk.Tk
         tk.Tk.__init__(self, *arg, **kwargs)
@@ -45,7 +47,7 @@ class DIP_Gui(tk.Tk):
         
         self.frames = {} 
         self.crete_container()
-        self.show_frame(n = 0)
+        self.show_frame(n = 1)
 
     
     def crete_container(self):

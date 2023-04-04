@@ -34,7 +34,8 @@ class controller():
             im = ImageGrab.grabclipboard() # Get image from clipboard
             im.save(temp_path) # save image to temp folder
             temp_img = self.create_PhotoImage(filePath = temp_path, max_dim = 500)
-            grandparent.src_img = temp_img
+            grandparent.src_photo_img = temp_img
+            grandparent.src_img_path = temp_path
             return 1
         except:
             return 0
