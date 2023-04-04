@@ -19,8 +19,9 @@ class DIP_Gui(tk.Tk):
     of our application."""
     def __init__(self, *arg, **kwargs):
         """ Back-end """
-        self.src_image = None
-
+        print('We are in __init__ of DIP_Gui')
+        self.src_img = None
+        print('src_img = None')
         """ Front-end """
         # __init__ function for class tk.Tk
         tk.Tk.__init__(self, *arg, **kwargs)
@@ -43,30 +44,34 @@ class DIP_Gui(tk.Tk):
         ]
         
         self.frames = {} 
-        self.crete_frames()
-        self.show_frame(0)
+        self.crete_container()
+        self.show_frame(n = 0)
 
     
-    def crete_frames(self):
+    def crete_container(self):
         # parent of frames
-        container = tk.Frame(self) 
-        container.pack(side = "top", fill = "both", expand = True)
-        container.grid_rowconfigure(0, weight = 1)
-        container.grid_columnconfigure(0, weight = 1)
-        # Iterating through a list consisting of the different page layouts
-        for F in self.pageLayouts:
-            frame = F(parent = container, grandparent = self) # parent = container (Frame), grandparent = MassageBotGui (Tk)
-            self.frames[F] = frame
-            frame.grid(row = 0, column = 0, sticky = "nsew")
+        self.container = tk.Frame(self) 
+        self.container.pack(side = "top", fill = "both", expand = True)
+        self.container.grid_rowconfigure(0, weight = 1)
+        self.container.grid_columnconfigure(0, weight = 1) 
 
     def show_frame(self, n):
         """
-        Put specific frame on top
         n : order of page
         """
+        # Ensure that n in range, otherwise return first frame  
         if n >= len(self.pageLayouts):
             n = 0
-        frame = self.frames[self.pageLayouts[n]]
+        # F is the page (class) at n 
+        F = self.pageLayouts[n]
+        # Init class 
+        frame = F(parent = self.container, grandparent = self) 
+        """ 
+        parent = container (Frame), grandparent = MassageBotGui (Tk) 
+        
+        """
+        self.frames[F] = frame
+        frame.grid(row = 0, column = 0, sticky = "nsew")
         frame.tkraise()
 
 if __name__ == '__main__':

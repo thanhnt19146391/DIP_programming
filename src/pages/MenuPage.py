@@ -16,6 +16,7 @@ from configuration import FONT
 class MenuPage(tk.Frame):
 
     def __init__(self, parent, grandparent):
+        print('We are in __init__ of MenuPage')
         # Init for tk.Frame
         tk.Frame.__init__(self, parent)
         ctrl = controller()
@@ -36,7 +37,7 @@ class MenuPage(tk.Frame):
             text = 'Home',
             font = FONT
         )
-        home_lb.grid(column = 1, row = 0, sticky = 'EW')
+        home_lb.grid(column = 0, row = 0, columnspan = 3, sticky = 'EW')
         
 
         # Label (text): Thresholding
@@ -47,7 +48,7 @@ class MenuPage(tk.Frame):
         )
         threshsholding_lb.grid(column = 0, row = 2, sticky = 'EW')
         
-        # Button: Thresholding button
+        # Button: Opening Thresholding button
         threshsholding_btn = tk.Button(
             self, 
             text = 'Threashold', 
@@ -63,15 +64,15 @@ class MenuPage(tk.Frame):
             text = 'Source image', 
             font = FONT
         )
-        src_img_txt.grid(column = 0, row = 3, sticky = 'EW')
+        src_img_txt.grid(column = 0, row = 3, sticky = 'W', padx = 10)
 
         # Label (image): Source image
         self.src_img = tk.Label(
             self,
-            image = self.photos[1],
+            image = self.photos[1] if grandparent.src_img == None else grandparent.src_img,
             bd = 0            
         )
-        self.src_img.grid(column = 0, row = 4, sticky = 'EW')
+        self.src_img.grid(column = 0, row = 4, columnspan = 2, sticky = 'W', padx = 10)
 
         # Button: update image from clipboard
         update_img_btn = tk.Button(
@@ -84,7 +85,7 @@ class MenuPage(tk.Frame):
                 self.update_image(ctrl = ctrl, grandparent = grandparent)
             ]
         )
-        update_img_btn.grid(column = 1, row = 3, sticky = 'W')
+        update_img_btn.grid(column = 0, row = 3, sticky = 'W', padx = 120)
     
         
     def update_image(self, ctrl, grandparent):

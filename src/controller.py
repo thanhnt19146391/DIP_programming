@@ -13,7 +13,7 @@ class controller():
             photoImages = []
             for fileName, max_dim in arg:
                 filePath = os.path.join(folderPath, fileName)
-                print(filePath)
+                # print(filePath)
                 photoImage = self.create_PhotoImage(filePath = filePath, max_dim = max_dim)
                 photoImages.append(photoImage)
             return photoImages
