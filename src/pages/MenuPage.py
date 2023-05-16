@@ -23,7 +23,8 @@ class MenuPage(tk.Frame):
         self.photos = ctrl.load_PhotoImages(
             ('black-and-white.png', 80),
             ('image-processing.png', 100),
-            ('reload.png', 50)
+            ('reload.png', 50),
+            ('video.png', 100)
         )
         
         # Column configure
@@ -57,6 +58,24 @@ class MenuPage(tk.Frame):
             image = self.photos[0],
             command = lambda: [grandparent.show_frame(1)])
         threshsholding_btn.grid(column = 0, row = 1, padx = 10, pady = 10)
+
+        # Label (text): Video Processing
+        video_processing_lb = tk.Label(
+            self, 
+            text = 'Video Processing', 
+            font = FONT
+        )
+        video_processing_lb.grid(column = 1, row = 2, sticky = 'EW')
+        
+        # Button: Video Processing
+        video_processing_btn = tk.Button(
+            self, 
+            text = 'Video Processing', 
+            font = FONT,
+            bd = 0,
+            image = self.photos[3],
+            command = lambda: [grandparent.show_frame(2)])
+        video_processing_btn.grid(column = 1, row = 1, padx = 10, pady = 10)
 
         # Label (text): Source image
         src_img_txt = tk.Label(
