@@ -16,10 +16,24 @@ from configuration import FONT
 class MenuPage(tk.Frame):
 
     def __init__(self, parent, grandparent):
+        
         print('We are in __init__ of MenuPage')
-        # Init for tk.Frame
+
+        '''
+            Init for tk.Frame
+        '''
+
         tk.Frame.__init__(self, parent)
+        
         ctrl = controller()
+
+
+        ''' 
+            Define some icon name as numbers
+        '''
+
+
+    
         self.photos = ctrl.load_PhotoImages(
             ('black-and-white.png', 80),
             ('image-processing.png', 100),
