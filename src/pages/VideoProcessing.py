@@ -167,12 +167,12 @@ class VideoProcessing(tk.Frame):
                     break
                 ret, frame = cap.read()
                 if ret: 
-                    self.frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                     self.frames.append(frame) 
                 else:
                     break
-            print(f'Successefully import video\nNumber of frame: {len(self.frames)}')       
-        except:
+            print(f'Successefully import video\nNumber of frame: {len(self.frames)}')      
+        except: 
             print('Error: import video')
         
     def update_frame_index(self, value):
