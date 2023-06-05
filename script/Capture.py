@@ -8,6 +8,7 @@ from collections import namedtuple
 import pyautogui
 import pyscreeze
 import win32gui
+from ultralytics import YOLO
 
 BOX = namedtuple('Box', ['x', 'y', 'w', 'h'])
 POINT = namedtuple('Point', ['x', 'y'])
@@ -21,6 +22,7 @@ MAP_BOX = BOX(x = 1410, y = 65, w = 160, h = 160)
 PICK_ALL_BOX = BOX(x = 1090, y = 560, w = 95, h = 35)
 PRACTICE_BOX = BOX(x = 650, y = 625, w = 300, h = 55)
 CENTER_MAP = POINT(x = 1493, y = 143)
+MODEL_PATH = 'model/yolov8/train3/weights/best.pt'
 
 def center_of_box(box):
     x = box.x + box.w // 2
@@ -134,16 +136,40 @@ def do_something(scheduler):
             cv2.waitKey(0)
     
     if 1:
-        bgr_img = cv2.imread(f'{SAVE_PATH}/pic_2023_6_4_14_20_16.jpg')
+        bgr_img = cv2.imread(f'{SAVE_PATH}/pic_2023_6_4_14_21_10.jpg')
         bgr_img, practice_box = draw_rectangle(bgr_img = bgr_img, box = PRACTICE_BOX)
-        templ_img, class_name = TEMPLATE[2]
-        gray = cv2.cvtColor(practice_box.copy(), cv2.COLOR_BGR2GRAY)
-        locations = pyscreeze.locateAll(templ_img, practice_box)
-    
-        for location in locations:
-            print(type(location))
-        cv2.imshow(WINNAME1, practice_box)
+        templ_img, class_name = TEMPLATE[3]
+        template = cv2.cvtColor(templ_img.copy(), cv2.COLOR_BGR2GRAY)
+        img = cv2.cvtColor(practice_box.copy(), cv2.COLOR_BGR2GRAY)
+        model = YOLO(MODEL_PATH)
+
+        result = model.predict(bgr_img)
+        print(f'Type of result: {type(result)}')
+        print(f'Len of result: {len(result)}')
+        print(f'Type of result[0]: {type(result[0])}')
+        print(f'Detected: {len(result[0].boxes)}')
+        
+        box = result[0].boxes
+
+        for i in range(len(box)):
+            cords = box.xyxy[i].tolist()
+            cords = [round(x) for x in cords]
+            class_id = result[0].names[box.cls[i].item()]
+            conf = round(box.conf[i].item(), 2)
+            print("Object type:", class_id)
+            print("Coordinates:", cords)
+            print("Probability:", conf)
+            cv2.rectangle(
+                img = bgr_img, 
+                pt1 = (cords[0], cords[1]), 
+                pt2 = (cords[2], cords[3]),
+                color = (0, 0, 255),
+                thickness = 2
+            )
+        cv2.imshow(WINNAME1, bgr_img)
         cv2.waitKey(0)
+        
+        
 
     # schedule the next call first
     scheduler.enter(DELAY, 1, do_something, (scheduler,))
