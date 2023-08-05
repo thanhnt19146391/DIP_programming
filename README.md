@@ -27,7 +27,7 @@ python -m pip freeze > requirements.txt
 ```
 
 # Some problems:
-Transfer variable from a frame to another frame. 
+Problem 1: Transfer variable from a frame to another frame. 
 Solution: init them with updated grandparent before deploying.
 
 Problem 2: labelimg -> Re-Opening the app resets classes.txt 
