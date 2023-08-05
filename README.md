@@ -1,27 +1,33 @@
 ﻿# DIP_programming
 
-# Command:
-Create a virtual environment in the terminal
+## Create a virtual enviroment
+Step 1: Create .venv folder by python module
 ```
 py -m venv .venv
 ```
 
+Step 2: Upgrade pip (newest version)
 Upgrade pip:
 ```
 py -m pip install --upgrade pip
 ```
 
-Set-Execution Policy to allow the current user to execute scripts as follows
+Step 3: Set-Execution Policy to allow the current user to execute scripts as follows
 ```
 Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
 ```
+Step 4: Active venv
+```
+.\.venv\Scripts\activate
+```
 
-Install packages
+## Some related features 
+### 1. Install packages from requirement.txt
 ```
 pip install -r .\requirements.txt
 ```
 
-Freeze packages
+### 2. Freeze packages and save at requirements.txt
 ```
 python -m pip freeze > requirements.txt
 ```
