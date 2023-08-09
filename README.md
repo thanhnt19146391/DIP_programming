@@ -3,13 +3,13 @@
 ## Create a virtual enviroment
 Step 1: Create .venv folder by python module
 ```
-py -m venv .venv
+python -m venv .venv
 ```
 
 Step 2: Upgrade pip (newest version)
 Upgrade pip:
 ```
-py -m pip install --upgrade pip
+python -m pip install --upgrade pip
 ```
 
 Step 3: Set-Execution Policy to allow the current user to execute scripts as follows
